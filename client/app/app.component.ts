@@ -12,11 +12,12 @@ export class AppComponent {
 
     constructor(http: Http) {
         
-        http.get('v1/fotos')
-            .map(res => res.json()) 
-            .subscribe(fotos => {
-                this.fotos = fotos
-            });
+        let stream = http.get('v1/fotos')
+        stream.subscribe( res => {
+            this.fotos = res.json();
+            console.log(this.fotos);
+            
+        })
     }
 } 
 
