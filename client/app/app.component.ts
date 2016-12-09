@@ -16,7 +16,8 @@ export class AppComponent {
             .map(res => res.json()) 
             .subscribe(fotos => {
                 this.fotos = fotos
-            });
+                console.log(this.fotos);                
+            }, error => console.log(error));
     }
 } 
 
