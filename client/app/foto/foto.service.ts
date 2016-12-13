@@ -30,4 +30,8 @@ export class FotoService {
             .get(this.url)
             .map(res => res.json());
     }
+
+    remove(foto: FotoComponent) {
+        return this.http.delete(this.url + '/' + foto._id);
+    }
 }
