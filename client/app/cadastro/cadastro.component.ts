@@ -16,6 +16,7 @@ export class CadastroComponent {
     service: FotoService;
     route: ActivatedRoute;
     router: Router;
+    mensagem: string = '';
 
     constructor(service: FotoService, fb: FormBuilder, route: ActivatedRoute, router: Router) {
 
@@ -45,10 +46,13 @@ export class CadastroComponent {
     cadastrar(event) {
         event.preventDefault();
 
-        this.service.cadastra(this.foto).subscribe(()=>{
-            console.log('Foto cadastrada com sucesso.');
-            this.foto = new FotoComponent();
-            this.router.navigate(['']);
+        this.service.cadastra(this.foto).subscribe( res => {
+            if(res.inclusao) {
+                this.foto = new FotoComponent();
+            } else {
+                this.router.navigate(['']);
+            }
+            this.mensagem = res.mensagem;
         }, error => {
             console.log(error);
         });
