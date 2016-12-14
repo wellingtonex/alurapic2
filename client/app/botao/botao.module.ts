@@ -1,13 +1,7 @@
 import { NgModule } from '@angular/core';
-import { BotaoComponent }   from './botao.component';
-
+import { BotaoComponent } from './botao.component';
 @NgModule({
-    imports: [],
-    exports: [BotaoComponent],
-    declarations: [BotaoComponent],
-    providers: [],
+    declarations: [ BotaoComponent ],
+    exports: [ BotaoComponent ]
 })
-export class BotaoModule {
-
-}
-
+export class BotaoModule { }

@@ -6,22 +6,28 @@ import { Component, Input, OnInit, ElementRef } from '@angular/core';
     templateUrl: './painel.component.html',
     styleUrls: ['./painel.component.css']
 })
-export class PainelComponent implements OnInit {
+export class PainelComponent implements OnInit { 
 
     @Input() titulo: string;
-    _element: ElementRef;
+    elemento: ElementRef;
 
-    constructor(_element: ElementRef) {
-        this._element = _element;
+    constructor(elemento: ElementRef) {
+
+        this.elemento = elemento;
+
     }
 
     ngOnInit() {
-        this.titulo = this.titulo.length > 7 ?
-             this.titulo.substr(0, 7) + '...' : 
-             this.titulo;
+
+        this.titulo = 
+            this.titulo.length > 7  
+            ? this.titulo.substr(0,7) + '...'
+            : this.titulo;
     }
 
     fadeOut(cb) {
-        $(this._element.nativeElement).fadeOut(cb);
+
+        $(this.elemento.nativeElement).fadeOut(cb);
     }
 }
+

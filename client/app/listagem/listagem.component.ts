@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { FotoService } from '../foto/foto.service';
 import { FotoComponent } from '../foto/foto.component';
 import { PainelComponent } from '../painel/painel.component';
@@ -6,41 +6,46 @@ import { PainelComponent } from '../painel/painel.component';
 @Component({
     moduleId: module.id,
     selector: 'listagem',
-    templateUrl: 'listagem.component.html'
+    templateUrl: './listagem.component.html'
 })
 export class ListagemComponent {
-    
+
     fotos: FotoComponent[] = [];
     service: FotoService;
-    mensagem: string;
+    mensagem: string = '';
 
     constructor(service: FotoService) {
-        this.mensagem = '';
+        
         this.service = service;
-        this.service.lista().subscribe((fotos) => {
-            this.fotos = fotos;
-        }, error => {
-            console.log(error);
-        });
+        this.service
+            .lista()
+            .subscribe(fotos => {
+                this.fotos = fotos;
+            }, erro => console.log(erro));
+       
     }
 
     remove(foto: FotoComponent, painel: PainelComponent) {
-        console.log(foto);
-        this.service.remove(foto).subscribe(
-            () => {
-            painel.fadeOut(() => {
-                //caso nao seja abribuida uma nova referencia a this.fotos o angular não vai rerenderizar a listagem
-                let novasFotos = this.fotos.slice(0);
-                let indice = novasFotos.indexOf(foto);
-                novasFotos.splice(indice, 1);
-                this.fotos = novasFotos;
-                this.mensagem = 'Foto removida com sucesso.';            
-            });
-        },
-        error => {
-            console.log(error);
-            this.mensagem = 'Não foi possivel remover a foto.';
-        });        
-    }
+        
+        this.service
+            .remove(foto)
+            .subscribe(
+                () => {
 
-}
+                    painel.fadeOut(() => {
+
+                        let novasFotos = this.fotos.slice(0);
+                        let indice = novasFotos.indexOf(foto);
+                        novasFotos.splice(indice, 1);
+                        this.fotos = novasFotos;
+                        this.mensagem = 'Foto removida com sucesso';
+                    }); 
+                }, 
+                erro => {
+                    console.log(erro);
+                    this.mensagem = 'Não foi possível remover a foto';
+                }
+            );
+
+    }
+ }

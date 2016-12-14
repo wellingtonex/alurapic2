@@ -13,6 +13,10 @@ npm run typings search jquery
 
 node ./node_modules/typings/dist/bin install dt~jquery --global --save
 
+npm install jqueryui-browser@1.10.2-1 --save
+npm install jquery-migrate@3.0.0 --save
+node ./node_modules/typings/dist/bin install dt~jqueryui --global --save
+
 
 Quando um evento é disparado, podemos transferir com o evento um dado. 
 Que tal vermos esse processo para sabermos ainda mais sobre eventos customizado?

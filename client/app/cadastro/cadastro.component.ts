@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import {FotoComponent} from '../foto/foto.component';
+import { Component } from '@angular/core';
+import { FotoComponent } from '../foto/foto.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FotoService } from '../foto/foto.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,10 +9,10 @@ import { ActivatedRoute, Router } from '@angular/router';
     selector: 'cadastro',
     templateUrl: './cadastro.component.html'
 })
-export class CadastroComponent {
+export class CadastroComponent { 
 
     foto: FotoComponent = new FotoComponent();
-    form: FormGroup;
+    meuForm: FormGroup;
     service: FotoService;
     route: ActivatedRoute;
     router: Router;
@@ -20,23 +20,29 @@ export class CadastroComponent {
 
     constructor(service: FotoService, fb: FormBuilder, route: ActivatedRoute, router: Router) {
 
-        this.service = service;
+        this.service = service;        
+        
         this.route = route;
         this.router = router;
 
         this.route.params.subscribe(params => {
+
             let id = params['id'];
             
             if(id) {
-                this.service.buscaPorId(id)
+
+                this.service
+                    .buscaPorId(id)
                     .subscribe(
-                        foto => this.foto = foto,
-                        error => console.log(error));
+                        foto => this.foto = foto, 
+                        erro => console.log(erro)
+                    );
             }
-            
+
         });
 
-        this.form = fb.group({
+        
+        this.meuForm = fb.group({
             titulo: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
             url: ['', Validators.required],
             descricao: ['']
@@ -44,19 +50,18 @@ export class CadastroComponent {
     }
 
     cadastrar(event) {
+
         event.preventDefault();
 
-        this.service.cadastra(this.foto).subscribe( res => {
-            if(res.isInclusao) {
-                this.foto = new FotoComponent();
-                this.mensagem = res.mensagem;
-            } else {
-                this.router.navigate(['']);
-            }
-        }, error => {
-            console.log(error);
-        });
-    }
+        console.log(this.foto);
 
+        this.service
+            .cadastra(this.foto)
+            .subscribe(res => {
+                this.mensagem = res.mensagem;
+                this.foto = new FotoComponent();
+                if(!res.inclusao) this.router.navigate(['']);
+            }, erro => console.log(erro));
+    }
 
 }
