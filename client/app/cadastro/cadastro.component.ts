@@ -47,12 +47,12 @@ export class CadastroComponent {
         event.preventDefault();
 
         this.service.cadastra(this.foto).subscribe( res => {
-            if(res.inclusao) {
+            if(res.isInclusao) {
                 this.foto = new FotoComponent();
+                this.mensagem = res.mensagem;
             } else {
                 this.router.navigate(['']);
             }
-            this.mensagem = res.mensagem;
         }, error => {
             console.log(error);
         });

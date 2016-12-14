@@ -18,16 +18,16 @@ export class FotoService {
             .append('Content-Type', 'application/json');
     }
 
-    cadastra(foto : FotoComponent) : Observable<any> {
+    cadastra(foto : FotoComponent) : Observable<RetornoCadastro> {
 
         if(foto._id) {
             return this.http.put(this.url + '/' + foto._id, JSON.stringify(foto), {headers : this.headers})
-            .map(() => ({mensagem: 'Foto alterada com sucesso.', inclusao:false}));
+            .map(() => new RetornoCadastro('Foto incluida com sucesso.', false));
         } else {
             return this
                 .http
                 .post(this.url, JSON.stringify(foto), { headers: this.headers })
-                .map(() => ({mensagem: 'Foto incluida com sucesso.', inclusao:true}));
+                .map(() => new RetornoCadastro('Foto incluida com sucesso.', true));
         }
     }
 
@@ -46,5 +46,24 @@ export class FotoService {
         return this.http
             .get(this.url + '/' + id)
             .map(res => res.json());
+    }
+}
+
+export class RetornoCadastro {
+
+    private _mensagem: string;
+    private _inclusao: boolean;
+
+    constructor(mensagem: string, inclusao: boolean) {
+        this._mensagem = mensagem;
+        this._inclusao = inclusao;
+    }
+
+    get mensagem() {
+        return this._mensagem;
+    }
+
+    isInclusao() {
+        return this._inclusao;
     }
 }
