@@ -21,12 +21,12 @@
     </div> <!-- fim row -->
     <br>
     <div class="row">
-        <painel *ngFor="let foto of fotos | filtroPorTitulo:textoProcurado.value " titulo="{{foto.titulo | uppercase}}" class="col-md-2">
+        <painel #painel *ngFor="let foto of fotos | filtroPorTitulo:textoProcurado.value " titulo="{{foto.titulo | uppercase}}" class="col-md-2">
             <a [routerLink]="['/cadastro', foto._id]">
                 <foto url="{{foto.url}}" titulo="{{foto.titulo}}">carregando</foto>
             </a>    
             <!--<button (click)="remove(foto)" class="btn btn-danger btn-block" >Remover</button> -->
-            <botao nome="Remover" estilo="btn-danger btn-block" confirmacao="true" (acao)="remove(foto)"></botao> 
+            <botao nome="Remover" estilo="btn-danger btn-block" confirmacao="true" (acao)="remove(foto, painel)"></botao> 
         </painel>
     </div>
 </div>

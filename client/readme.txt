@@ -4,8 +4,14 @@ Contudo, isso não precisa ser assim. Vamos adicionar no decorator dos dois comp
 a propriedade moduleId e passar o valor enigmático module.id. Com ele, podemos passar o caminho 
 relativo dos templates:
 
+ npm install jquery@3.1.1 --save
+
 RXJS
 https://github.com/Reactive-Extensions/RxJS
+
+npm run typings search jquery
+
+node ./node_modules/typings/dist/bin install dt~jquery --global --save
 
 
 Quando um evento é disparado, podemos transferir com o evento um dado. 
