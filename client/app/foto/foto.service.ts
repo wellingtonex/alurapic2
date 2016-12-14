@@ -51,19 +51,16 @@ export class FotoService {
 
 export class RetornoCadastro {
 
-    private _mensagem: string;
-    private _inclusao: boolean;
-
-    constructor(mensagem: string, inclusao: boolean) {
-        this._mensagem = mensagem;
-        this._inclusao = inclusao;
+    constructor(private _mensagem: string, private _inclusao: boolean) {
+        this._mensagem = _mensagem;
+        this._inclusao = _inclusao;
     }
 
-    get mensagem() {
+    get mensagem() : string {
         return this._mensagem;
     }
 
-    isInclusao() {
+    get isInclusao() : boolean {
         return this._inclusao;
     }
 }
