@@ -47,3 +47,6 @@ metodoQualquerDoComponent(event) {
 
     alert(event); // exibe 10!
 }
+
+
+npm install -g angular-cli@1.0.0-beta.19-3
